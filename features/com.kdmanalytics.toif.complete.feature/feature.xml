@@ -177,7 +177,12 @@ http://www.opensource.org/licenses/osl-3.0.php/
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-
+  <plugin
+         id="com.kdmanalytics.toif.sonarqube"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
    <plugin
          id="com.kdmanalytics.toif.rats"
          download-size="0"

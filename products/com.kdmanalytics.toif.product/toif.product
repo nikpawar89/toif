@@ -39,6 +39,7 @@
       <plugin id="com.kdmanalytics.toif.findbugs"/>
       <plugin id="com.kdmanalytics.toif.framework"/>
       <plugin id="com.kdmanalytics.toif.jlint"/>
+      <plugin id="com.kdmanalytics.toif.sonarqube"/>
       <plugin id="com.kdmanalytics.toif.rats"/>
       <plugin id="com.kdmanalytics.toif.splint"/>
       <plugin id="com.lexicalscope.jewelcli"/>
