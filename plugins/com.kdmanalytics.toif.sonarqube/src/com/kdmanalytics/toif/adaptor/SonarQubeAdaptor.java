@@ -21,6 +21,7 @@ import java.util.Properties;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.apache.commons.lang3.ArrayUtils;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -37,6 +38,7 @@ import com.kdmanalytics.toif.framework.toolAdaptor.AdaptorOptions;
 import com.kdmanalytics.toif.framework.toolAdaptor.Language;
 import com.kdmanalytics.toif.framework.utils.FindingCreator;
 //import com.kdmanalytics.toif.framework.xmlElements.entities.Element;
+import com.kdmanalytics.toif.framework.xmlElements.entities.CodeLocation;
 
 /**
  * class for the SonarQube adaptor.
@@ -54,7 +56,7 @@ public class SonarQubeAdaptor extends AbstractAdaptor {
   /**
    * By default we expect the executable to be in path
    */
-  private String execPath = "sonar-scanner.bat";
+  private String execPath = "sonarlint";
   
   /*
    * (non-Javadoc)
@@ -81,107 +83,26 @@ public class SonarQubeAdaptor extends AbstractAdaptor {
    * 
    * @throws ToifException
    */
-  @Override
+ @Override
   public ArrayList<com.kdmanalytics.toif.framework.xmlElements.entities.Element> parse(java.io.File process, AdaptorOptions options, IFileResolver resolver,
                                   boolean[] validLines, boolean unknownCWE) throws ToifException {
+	 System.out.println("****CWE discovered****");
+		String lineNumber="",msg="",id="";
+    String line = null;
     com.kdmanalytics.toif.framework.xmlElements.entities.File file = resolver.getDefaultFile();
-    InputStream inStream = null;
-    BufferedReader br = null;
-    String line = null;
     try
-    
     {
       // new finding creator
       FindingCreator creator = new FindingCreator(getProperties(), getAdaptorName(), unknownCWE);
       
-      // get the stream from the process.
-      inStream = new FileInputStream(process);
-      
-      // new buffered reader from the stream.
-      br = new BufferedReader(new InputStreamReader(inStream));
-      
-      // read each line one at a time
-      while ((line = br.readLine()) != null) {
-        
-        // get the colon out the way of the windows side.
-        line = line.replaceFirst(":\\\\", "#");
-        
-        // the different elements are divided by a colon
-        String[] elements = line.split(":", 3);
-        
-        // anything of length 3, is a finding
-        if (elements.length == 3) {
-          
-          // create the parts of a finding.
-          String msg = line.split(": ", 2)[1].trim();
-          
-          // continue if the message is the verification message.
-          if (msg.startsWith("Verification completed")) {
-            continue;
-          }
-          
-          String id = deriveId(msg);
-          int lineNumber = Integer.parseInt(elements[1]);
-          // String file = elements[0];
-          
-          String dataElement = getDataElement(id, msg);
-          // create the finding using the finding creator.
-          creator.create(msg, id, lineNumber, null, null, file, dataElement, null);
-          
-          
-        /*  create(String msg, String id, Integer lineNumber, Integer offset, Integer position, File file, String dataElement, String cwe,
-                  CodeLocation... traces)*/
-         
-         
-        }
-        
-      }
-      // close resources
-      br.close();
-      br = null;
-      inStream.close();
-      inStream = null;
-      return creator.getElements();
-      
-    } catch (Exception e) {
-      final String msg = getAdaptorName() + ": Error while reading input stream from tool: file=" + process
-                                                                                                           .getAbsolutePath()
-                         + " line=" + line;
-      LOG.error(msg, e);
-      throw new ToifException(msg, e);
-    } finally {
-      try {
-        if (br != null) br.close();
-        
-        if (inStream != null) inStream.close();
-        
-      } catch (Exception e) {
-        LOG.error(getAdaptorName() + ": Unable to close stream", e);
-      }
-    }
-    
-  }
-  
-  
- 
-  public ArrayList<com.kdmanalytics.toif.framework.xmlElements.entities.Element> parse1(java.io.File process, AdaptorOptions options, IFileResolver resolver,
-                                  boolean[] validLines, boolean unknownCWE) throws ToifException {
-		String lineNumber="";
-    String line = null;
-    try
-    
-    {
-      // new finding creator
-      FindingCreator creator = new FindingCreator(getProperties(), getAdaptorName(), unknownCWE);
-      
-      File file=new File("C:\\UTA\\sem2\\secure\\juliet\\CWE114_Process_Control\\test1.html");
-		try {
-			Document doc=Jsoup.parse(file,"UTF-8");
+     File lfile=new File("C:\\UTA\\sem2\\secure\\juliet\\CWE114_Process_Control\\test1.html");
+		
+			Document doc=Jsoup.parse(file.getPath(),"UTF-8");
 		
 			Elements children;
 			int val=0;
 		
-		Elements issues=doc.getElementsByAttributeValue("class","vtitle");
+				Elements issues=doc.getElementsByAttributeValue("class","vtitle");
 				
 		for(Element issue:issues)
 		{
@@ -195,36 +116,34 @@ public class SonarQubeAdaptor extends AbstractAdaptor {
 					lineNumber=issue.parent().parent().parent().id();
 					
 					
+					id=lineNumber.substring(lineNumber.lastIndexOf('V')+1,lineNumber.length() );
 					
-					System.out.println(lineNumber.substring(lineNumber.lastIndexOf('V')+1,lineNumber.length() ));
+					msg=child.nextElementSibling().text();
 					
+					//System.out.println(lineNumber.substring(lineNumber.lastIndexOf('V')+1,lineNumber.length() ));
+					System.out.println(id);
 					
-					System.out.println(child.nextElementSibling().text()+"\n");
+					System.out.println(msg);
+					
+					//System.out.println(child.nextElementSibling().text()+"\n");
 					
 				}
 			}
 			
-			
-		
-					
-		}
-			
-			
-			  
-			  
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-     
-      creator.create(msg, id, lineNumber, null, null, file, dataElement, null);
+	}
+			Integer offset=new Integer(0);
+			Integer position=new Integer(0);
+			//com.kdmanalytics.toif.framework.xmlElements.entities.File tempFile=new com.kdmanalytics.toif.framework.xmlElements.entities.File();
+			//com.kdmanalytics.toif.framework.xmlElements.entities.File absFile = resolver.resolve(tempFile);
+	 creator.create(msg, "GenericExceptions", Integer.parseInt(id), null, null,file, null, null);
+	// create(String msg, String id, Integer lineNumber, Integer offset, Integer position, File file, String dataElement, String cwe,CodeLocation... traces)
+	 
+	 //findingCreator.create(id + " - " + description.toString(), "CODING_STANDARDS", line, null, null, absFile, null, null);
       return creator.getElements();
       
     } catch (Exception e) {
-      final String msg = getAdaptorName() + ": Error while reading input stream from tool: file=" + process
-                                                                                                           .getAbsolutePath()
-                         + " line=" + line;
-      LOG.error(msg, e);
+     // final String msg = getAdaptorName() + ": Error while reading input stream from tool: file=" + process.getAbsolutePath() + " line=" + line;
+      LOG.error("sonar errors", e);
       throw new ToifException(msg, e);
     } 
     
@@ -234,126 +153,50 @@ public class SonarQubeAdaptor extends AbstractAdaptor {
   
   
   
-  /**
-   * Since there are no weakness ID's for jlint, we need to create our own. The ID's need to be
-   * unique for all weaknesses but the same for all variants of the same weakness.
-   * 
-   * @param string
-   * @return
-   * @throws ToifException
-   */
-  protected String deriveId(String description) throws ToifException {
-    
-    Scanner scan = null;
-    try
-    
-    {
-      scan = new Scanner(getClass().getResourceAsStream("/config/idConfig"));
-      
-      String line = null;
-      while (scan.hasNextLine()) {
-        line = scan.nextLine();
-        String[] lineParts = line.split(";");
-        String pattern = lineParts[0];
-        String id = lineParts[1];
-        
-        Pattern r = Pattern.compile(pattern);
-        
-        Matcher m = r.matcher(description);
-        
-        if (m.find()) {
-          scan.close();
-          scan = null;
-          return id;
-        }
-      }
-      
-      // free resources
-      scan.close();
-      scan = null;
-    } catch (Exception e) {
-      final String msg = getAdaptorName() + ": Could not access the idConfig file.";
-      LOG.error(msg, e);
-      throw new ToifException(msg, e);
-    } finally {
-      try {
-        if (scan != null) scan.close();
-      } catch (Exception e) {
-        System.err.println(getAdaptorName() + ": Unable to close scanner.");
-      }
-    }
-    return description;
-  }
   
-  /**
-   * Commands to run the tool. In the form of a String array.
-   */
   @Override
   public String[] runToolCommands(AdaptorOptions options, String[] otherOpts) {
-    String execPath = this.execPath;
-    if (options.getExecutablePath() != null) execPath = options.getExecutablePath().getAbsolutePath();
-    final String[] commands = {
-                                execPath, options.getInputFile().toString()
-    };
-    
-    // inserting the optional arguments into that array.
-    List<String> commandList;
-    commandList = new ArrayList<String>();
-    commandList.addAll(Arrays.asList(commands));
-    commandList.addAll(commands.length - 1, Arrays.asList(otherOpts));
-    String[] s = commandList.toArray(new String[commandList.size()]);
-    
-    return s;
+	  
+	  // this is where the output of the tool is going to be written in order
+	    // for us to collect it.
+	 
+	    
+	    // the required commands to run the tool.
+	  String[] allCommands=new String[10];
+	  try
+	  {
+		  //File outFile = new File( options.getInputFile().getCanonicalPath());
+		//  System.out.println("input file "+options.getInputFile().getCanonicalPath());
+		  
+	    String execPath = this.execPath;
+	    if (options.getExecutablePath() != null) execPath = options.getExecutablePath().getAbsolutePath();
+	    /*final String[] commands = {
+	        execPath, "  --src ",options.getInputFile().getCanonicalPath()+options.getInputFile()," --html-report ", options.getInputFile()+".html"};*/
+	    final String[] commands = {
+		        execPath, "--src ",options.getInputFile().getCanonicalPath(),"--html-report",options.getOutputDirectory()+options.getInputFile().getName().replace('.',
+		        		'_')+".html"};
+	    
+	    
+	    
+	    allCommands =  ArrayUtils.addAll(commands, otherOpts);
+	    
+	    System.out.println("commands "+Arrays.toString(commands));
+	    System.out.println("All commands "+Arrays.toString(allCommands));
+	    
+	
+	  
+	  }
+	  
+	  catch(IOException e)
+	  {
+		  e.printStackTrace();
+		  
+	  }
+	    return allCommands;
+ 
   }
   
-  /**
-   * Get the dataElement's name from the configuration file.
-   * 
-   * @param id
-   *          the error's id.
-   * @param msg
-   *          the error's message.
-   * @return The name as a string for the dataElement.
-   */
-  public String getDataElement(String id, String msg) {
-    Properties props = getProperties();
-    
-    if (props.getProperty(id + "Element") == null) {
-      return null;
-    }
-    
-    // look for the property which defines where the element is.
-    final String prop = props.getProperty(id + "Element");
-    
-    String reg = "";
-    
-    // choose which regex to use.
-    if (prop.startsWith("#")) {
-      final String text = msg.substring(msg.length() - prop.length() + 1);
-      reg = ".*(?=" + text + ")";
-    } else if (prop.endsWith("#")) {
-      final String text = prop.split("#")[0];
-      reg = "(?<=" + text + ").*";
-    } else {
-      final String[] text = prop.split("#");
-      reg = "(?<=" + text[0] + ").*(?=" + text[1] + ")";
-    }
-    
-    // match the pattern to the message
-    final Pattern pat = Pattern.compile(reg, Pattern.DOTALL);
-    final Matcher matcher = pat.matcher(msg);
-    
-    String name = "";
-    
-    // if the matcher makes a find, use this as the name
-    if (matcher.find()) {
-      name = matcher.group();
-    } else {
-      return null;
-    }
-    
-    return name;
-  }
+
   
   /*
    * (non-Javadoc)

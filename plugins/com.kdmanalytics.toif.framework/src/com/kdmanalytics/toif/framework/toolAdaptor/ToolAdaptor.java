@@ -1223,6 +1223,8 @@ public class ToolAdaptor
         
         String[] commands = adaptorImpl.runToolCommands(options, otherOpts);
         
+        System.out.println(" commands in tool adapter"+Arrays.toString(commands));
+        
         if (commands == null)
         {
             return null;
@@ -1276,6 +1278,8 @@ public class ToolAdaptor
                 niceCommands.add("\"" + cmd + "\"");
             else niceCommands.add(cmd);
         }
+        
+        System.out.println("*** debug**** commands to be executed "+niceCommands.toArray(new String[niceCommands.size()]));
         
         return niceCommands.toArray(new String[niceCommands.size()]);
     }
@@ -1332,6 +1336,8 @@ public class ToolAdaptor
                 sb.append(cmd).append(" ");
             }
         }
+        
+        System.out.println("command received from getCommand() "+command);
         
         process = new ProcessBuilder(command);
         
@@ -1429,6 +1435,8 @@ public class ToolAdaptor
         }
         try
         {
+            
+            System.out.println("***************** attempting to start the process *****************");
             Process p = process.start();
             
             p.waitFor();
@@ -1438,6 +1446,7 @@ public class ToolAdaptor
             String name = adaptorImpl.getAdaptorName();
             if ((p.exitValue() != 0) && (!"Splint".equals(name)))
             {
+                
                 int status = p.exitValue();
                 final String msg = "Adaptor process failure detected for '" + name + "': status=" + status + " " + options.getAdaptor().toString();
                 
@@ -1448,6 +1457,7 @@ public class ToolAdaptor
         }
         catch (final IOException | InterruptedException e)
         {
+            System.out.println("command received from getCommand() "+command);
             final String msg = options.getAdaptor().toString() + ": Could not write to output. " + e;
             LOG.error(msg);
             throw new ToifException(e);
