@@ -1,0 +1,69 @@
+Generic_exceptions_should_not_be_thrown:Generic exceptions should not be thrown;SFP--1;CWE-397
+SQL_binding_mechanisms_should_be_used:SQL binding mechanisms should be used;SFP--1;CWE-20
+Values_passed_to_OS_commands_should_be_sanitized:Values passed to OS commands should be sanitized;SFP--1;CWE-78
+Values_passed_to_OS_commands_should_be_sanitized:Values passed to OS commands should be sanitized;SFP--1;CWE-88
+SQL_binding_mechanisms_should_be_used:SQL binding mechanisms should be used;SFP--1;CWE-89
+Values_passed_to_LDAP_queries_should_be_sanitized:Values passed to LDAP queries should be sanitized;SFP--1;CWE-90
+Struts_validation_forms_should_have_unique_names:Struts validation forms should have unique names;SFP--1;CWE-102
+Math_operands_should_be_cast_before_assignment:Math operands should be cast before assignment;SFP--1;CWE-190
+Change_this_condition_so_that_it_does_not_always_evaluate_to_true:Change this condition so that it does not always evaluate to true;SFP--1;CWE-397
+Define_and_throw_a_dedicated_exception_instead_of_using_a_generic_one:Define and throw a dedicated exception instead of using a generic one;SFP--1;CWE-397
+Credentials_should_not_be_hard-coded:Credentials should not be hard-coded;SFP--1;CWE-259
+Security_constraints_should_be_defined:Security constraints should be defined;SFP--1;CWE-284
+HTTP_referers_should_not_be_relied_on:HTTP referers should not be relied on;SFP--1;CWE-293
+either_DES_(Data_Encryption_Standard)_nor_DESede_(3DES)_should_be_used:either DES (Data Encryption Standard) nor DESede (3DES) should be used;SFP--1;CWE-326
+Neither_DES_(Data_Encryption_Standard)_nor_DESede_(3DES)_should_be_used:Neither DES (Data Encryption Standard) nor DESede (3DES) should be used;SFP--1;CWE-327
+SHA-1_and_Message-Digest_hash_algorithms_should_not_be_used:SHA-1 and Message-Digest hash algorithms should not be used;SFP--1;CWE-328
+Pseudorandom_number_generators_(PRNGs)_should_not_be_used_in_secure_contexts:Pseudorandom number generators (PRNGs) should not be used in secure contexts;SFP--1;CWE-330
+Pseudorandom_number_generators_(PRNGs)_should_not_be_used_in_secure_contexts:Pseudorandom number generators (PRNGs) should not be used in secure contexts;SFP--1;CWE-338
+Zero_should_not_be_a_possible_denominator:Zero should not be a possible denominator;SFP--1;CWE-369
+Mutable_members_should_not_be_stored_or_returned_directly:Mutable members should not be stored or returned directly;SFP--1;CWE-374
+Mutable_members_should_not_be_stored_or_returned_directly:Mutable members should not be stored or returned directly;SFP--1;CWE-375
+Exit_methods_should_not_be_called:Exit methods should not be called;SFP--1;CWE-382
+InterruptedException_should_not_be_ignored:InterruptedException should not be ignored;SFP--1;CWE-391
+Define_and_throw_a_dedicated_exception_instead_of_using_a_generic_one:Define and throw a dedicated exception instead of using a generic one;SFP--1;CWE-397
+Non-serializable_objects_should_not_be_stored_in_HttpSession_objects:Non-serializable objects should not be stored in HttpSession objects;SFP--1;CWE-579
+Classes_that_override_clone_should_be_Cloneable_and_call_superclone():Classes that override clone should be Cloneable and call super.clone();SFP--1;CWE-580
+equals(Object_obj)_and_hashCode()_should_be_overridden_in_pairs:equals(Object obj) and hashCode() should be overridden in pairs;SFP--1;CWE-581
+Mutable_fields_should_not_be_public_static:Mutable fields should not be public static;SFP--1;CWE-582
+Objectfinalize()_should_remain_protected_(versus public)_when overriding:Object.finalize() should remain protected (versus public) when overriding;SFP--1;CWE-583
+Jump_statements_should_not_occur_in_finally_blocks:Jump statements should not occur in finally blocks;SFP--1;CWE-584
+The_Objectfinalize()_method_should_not_be_called:The Object.finalize() method should not be called;SFP--1;CWE-586
+Fields_in_a_Serializable_class_should_either_be_transient_or_serializable:Fields in a Serializable class should either be transient or serializable;SFP--1;CWE-594
+Objects_should_be_compared_with_equals():Objects should be compared with equals();SFP--1;CWE-595
+Objects_should_be_compared_with _equals():Objects should be compared with equals();SFP--1;CWE-597
+Exceptions_should_not_be_thrown_from_servlet_methods:Exceptions should not be thrown from servlet methods;SFP--1;CWE-600
+Mutable_fields_should_not_be_public_static:Mutable fields should not be public static;SFP--1;CWE-607
+Cookies_should_be_secure;SFP--1:Cookies should be secure;CWE-614
+Return_values_should_not_be_ignored_when_they_contain_the_operation_status_code:Return values should not be ignored when they contain the operation status code;SFP--1;CWE-754
+Cryptographic_RSA_algorithms_should_always_incorporate_OAEP_(Optimal Asymmetric Encryption Padding):Cryptographic RSA algorithms should always incorporate OAEP (Optimal Asymmetric Encryption Padding);SFP--1;CWE-780
+Limited_dependence_should_be_placed_on_operator_precedence_rules_in_expressions:Limited dependence should be placed on operator precedence rules in expressions;SFP--1;CWE-783
+Credentials_should_not_be_hard-coded:Credentials should not be hard-coded;SFP--1;CWE-798
+HttpServletRequestgetRequestedSessionId()_should_not_be_used:HttpServletRequest.getRequestedSessionId() should not be used
+;SFP--1;CWE-807
+Equality_operators_should_not_be_used_in_for_loop_termination_conditions:Equality operators should not be used in for loop termination conditions;SFP--1;CWE-835
+SQL_binding_mechanisms_should_be_used:SQL binding mechanisms should be used;SFP--1;CWE-943
+NullPointerException_should_not_be_caught:NullPointerException should not be caught;SFP--1;CWE-395
+Throwable_and_Error_should_not_be_caught:Throwable and Error should not be caught;SFP--1;CWE-396
+Blocks_should_be_synchronized_on_private_final_fields:Blocks should be synchronized on private final fields;SFP--1;CWE-412
+Blocks_should_be_synchronized_on_private_final_fields:Blocks should be synchronized on private final fields;SFP--1;CWE-413
+Locks_should_be_released:Locks should be released;SFP--1;CWE-459
+toString()_and_clone()_methods_should_not_return_null:toString() and clone() methods should not return null;SFP--1;CWE-476
+CallToDeprecatedMethod_@Deprecated_code_should_not_be_used:CallToDeprecatedMethod @Deprecated code should not be used;SFP--1;CWE-477
+SwitchLastCaseIsDefaultCheck_switch_statements_should_end_with_default_clauses:SwitchLastCaseIsDefaultCheck switch statements should end with default clauses;SFP--1;CWE-478
+AssignmentInSubExpressionCheck_Assignments_should_not_be_made_from_within_sub-expressions:AssignmentInSubExpressionCheck Assignments should not be made from within sub-expressions;SFP--1;CWE-481
+Multiline_blocks_should_be_enclosed_in_curly_braces:Multiline blocks should be enclosed in curly braces;SFP--1;CWE-483
+Switch_cases_should_end_with_an_unconditional_break_statement:Switch cases should end with an unconditional break statement;SFP--1;CWE-484
+Classes_should_not_be_compared_by_name:Classes should not be compared by name;SFP--1;CWE-486
+Conditions_should_not_unconditionally_evaluate_to_TRUE_or_to_FALSE:Conditions should not unconditionally evaluate to TRUE or to FALSE;SFP--1;CWE-489
+Class_variable_fields_should_not_have_public_accessibility:Class variable fields should not have public accessibility;SFP--1;CWE-493
+public_static_fields_should_be_constant:public static fields should be constant;SFP--1;CWE-500
+Untrusted_data_should_not_be_stored_in_sessions:Untrusted data should not be stored in sessions;SFP--1;CWE-501
+Classes_should_not_be_loaded_dynamically:Classes should not be loaded dynamically;SFP--1;CWE-545
+Track_uses_of_TODO_tags:Track uses of TODO tags;SFP--1;CWE-546
+Dead_stores_should_be_removed:Dead stores should be removed;SFP--1;CWE-563
+SQL_binding_mechanisms_should_be_used:SQL binding mechanisms should be used;SFP--1;CWE-564
+Conditions_should_not_unconditionally_evaluate_to_TRUE_or_to_FALSE:Conditions should not unconditionally evaluate to TRUE or to FALSE;SFP--1;CWE-570
+Conditions_should_not_unconditionally_evaluate_to_TRUE_or_to_FALSE:Conditions should not unconditionally evaluate to TRUE or to FALSE;SFP--1;CWE-571
+Thread_run()_should_not_be_called_directly:Thread run() should not be called directly;SFP--1;CWE-572
+

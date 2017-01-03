@@ -131,8 +131,7 @@
           </configuration>
         </plugin>
       </plugins>
-
-    </pluginManagement>
+</pluginManagement>
   </build>
   <dependencyManagement>
 		  <dependencies>
